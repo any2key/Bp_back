@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bp_back", "Bp_back\Bp_back.csproj", "{BC10A63E-5E6A-4CEB-8626-286C35EECFED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bp_Hub", "Bp_Hub\Bp_Hub.csproj", "{07D8454B-CCA5-41D2-9EEB-18CCE44B1AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bp_tcp_server", "Bp_tcp_server\Bp_tcp_server.csproj", "{1F8B8850-2E9F-4E77-86F5-2643BAB2ECC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC10A63E-5E6A-4CEB-8626-286C35EECFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC10A63E-5E6A-4CEB-8626-286C35EECFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC10A63E-5E6A-4CEB-8626-286C35EECFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC10A63E-5E6A-4CEB-8626-286C35EECFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D8454B-CCA5-41D2-9EEB-18CCE44B1AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D8454B-CCA5-41D2-9EEB-18CCE44B1AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D8454B-CCA5-41D2-9EEB-18CCE44B1AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D8454B-CCA5-41D2-9EEB-18CCE44B1AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8B8850-2E9F-4E77-86F5-2643BAB2ECC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8B8850-2E9F-4E77-86F5-2643BAB2ECC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8B8850-2E9F-4E77-86F5-2643BAB2ECC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8B8850-2E9F-4E77-86F5-2643BAB2ECC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3FE6A1C-E27D-4A23-88BA-295F343C3ECE}
+	EndGlobalSection
+EndGlobal
