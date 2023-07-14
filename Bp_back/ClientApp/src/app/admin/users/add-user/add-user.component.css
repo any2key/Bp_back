@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+}
+
+.mat-card:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}
+
+mat-form-field {
+  width: 100%
+}

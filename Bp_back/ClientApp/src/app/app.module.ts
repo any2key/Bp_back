@@ -1,34 +1,52 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router'
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AuthInterceptorProvider } from './Interceptors/auth.Interceptor';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ErrorInterceptorProvider } from './Interceptors/error.Interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SuccessModalComponent } from './success-modal/success-modal.component';
+
+
+
+import { ConfirmComponent } from './confirm/confirm.component';
+import { routing } from './app.routing';
+import { AccountModule } from './account/account.module';
+import { SharedMaterialModule } from './shared-material/shared-material.module';
+import { AdminModule } from './admin/admin.module';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    NotFoundComponent,
+    ForbiddenComponent,
+    ConfirmComponent,
+    SuccessModalComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    routing,
+    ReactiveFormsModule,
+    AccountModule,
+    SharedMaterialModule,
+    BrowserAnimationsModule,
+    AdminModule,
   ],
-  providers: [],
+  providers: [
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

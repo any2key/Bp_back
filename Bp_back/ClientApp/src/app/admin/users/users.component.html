@@ -1,0 +1,98 @@
+
+<mat-card style="margin-top:1%;margin-left:25%;margin-right:25%">
+  <mat-card-header>
+    <mat-card-title>
+      Пользователи
+    </mat-card-title>
+    <mat-card-subtitle>
+      Управление пользователями
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="login">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Логин </th>
+        <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Роль </th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.role=='admin'">
+            Администратор
+          </span>
+          <span *ngIf="element.role=='user'">
+            Менеджер
+          </span>
+          <span *ngIf="element.role=='smuser'">
+            Пользователь
+          </span>
+          <span *ngIf="element.role=='tguser'">
+            Telegram Bot API
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Статус </th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.active" style="color:green" matTooltip="Активен" class="material-icons">
+            trip_origin
+          </span>
+          <span *ngIf="!element.active" style="color:red" matTooltip="Неактивен" class="material-icons">
+            trip_origin
+          </span>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button (click)="openDialog(1,element)" mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Редактировать</span>
+            </button>
+            <button (click)="changeStatus(element)" mat-menu-item>
+              <mat-icon>swap_horiz</mat-icon>
+              <span>Изменить статус</span>
+            </button>
+            <button (click)="deleteUser(element.id)" matTooltip="При удалении этого пользователя будут удалены все связанные с ним ключи" mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Удалить</span>
+            </button>
+          </mat-menu>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <button mat-raised-button color="primary" (click)="openDialog(0)" style="margin:10px;">Добавить пользователя</button>
+  </div>
+
+
+  </mat-card-content>
+
+</mat-card>

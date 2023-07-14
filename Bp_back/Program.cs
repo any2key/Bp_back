@@ -1,10 +1,60 @@
+
+using Bp_back.Context;
+using Bp_back.Services;
+using Bp_back.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using NLog.Web;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+                            builder =>
+                            {
+                                builder.WithOrigins(
+                            "http://localhost:5000",
+                            "https://localhost:44369",
+                            "https://localhost:5001").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                            });
+});
 
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+
+
+
+
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IDataService, DataService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = TokenHelper.Issuer,
+            ValidAudience = TokenHelper.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(TokenHelper.Secret))
+        };
+    });
+
+builder.Services.AddAuthorization();
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -13,15 +63,38 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
 
+
+app.UseAuthentication();
+
+
+
+
+
+
+app.UseRouting();
+app.UseCors(builder =>
+{
+    builder.AllowAnyMethod();
+    builder.AllowAnyOrigin();
+    builder.AllowAnyHeader();
+});
+app.UseAuthorization();
+
+app.UseEndpoints(enpoints =>
+{
+});
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
+
+
+
 
 app.Run();

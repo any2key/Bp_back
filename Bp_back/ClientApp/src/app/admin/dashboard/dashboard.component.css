@@ -1,0 +1,44 @@
+.card {
+  display: inline-block;
+  float:left;
+  margin:5%;
+}
+.textCard {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+.mat-elevation-z8 {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+}
+
+.header {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+  text-align: center
+}
+
+h4 {
+  padding-top: 2%
+}
+
+table {
+  width: 100%;
+  text-align: center;
+}
+.mat-cell:nth-child(even) {
+  background-color: #f2f4f7;
+}
+
+.mat-cell:nth-child(odd) {
+  background-color: #e4e4e4;
+}
+

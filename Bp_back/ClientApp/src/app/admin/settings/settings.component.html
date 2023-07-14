@@ -1,0 +1,215 @@
+<mat-toolbar>
+  <span>Настройки</span>
+</mat-toolbar>
+
+<form [formGroup]="AdminSettings" autocomplete="off">
+
+  <mat-card style="margin-top:2%;margin-left:25%;margin-right:25%">
+    <mat-card-header>
+      <mat-card-title>
+        Интеграция с CRM
+      </mat-card-title>
+      <mat-card-subtitle>
+
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Url CRM</mat-label>
+        <input autocomplete="off" matInput placeholder="Url CRM" formControlName="CrmUrl">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Токен</mat-label>
+        <input autocomplete="off" matInput placeholder="Токен" formControlName="Token">
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card style="margin-top:2%;margin-left:25%;margin-right:25%">
+    <mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          Общие настройки
+        </mat-card-title>
+        <mat-card-subtitle>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div>
+        <mat-form-field style="width:60%">
+          <mat-label>Срок хранения логов</mat-label>
+          <input autocomplete="off" matInput placeholder="Срок хранения логов" formControlName="LogKeepDays">
+        </mat-form-field>
+        <button style="margin-left:5px" color="primary" (click)="downloadLogs()" mat-raised-button>
+          <span class="material-icons">
+            download
+          </span>
+          <span style="align-self:end">
+            Скачать логи
+          </span>
+        </button>
+      </div>
+
+
+
+      <!--<div>
+        <mat-form-field style="width:100%">
+          <mat-label>apikey бота Telegram</mat-label>
+          <input autocomplete="off" matInput placeholder="apikey бота Telegram" formControlName="ApiKey">
+        </mat-form-field>
+      </div>-->
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Адрес сервиса бота Телеграмм</mat-label>
+          <input autocomplete="off" matInput placeholder="Адрес сервиса бота Телеграмм" formControlName="ApiTgServiceUrl">
+        </mat-form-field>
+      </div>
+
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Сообщение при старте</mat-label>
+          <textarea style="max-height:300px" autocomplete="off" matInput placeholder="Сообщение при старте" formControlName="GreetingTgMsg"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button style="margin-left:5px" color="primary" (click)="openswagger()" mat-raised-button>
+          <span class="material-icons">
+            api
+          </span>
+          <span style="align-self:end">
+            Перейти к Swagger
+          </span>
+        </button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top:2%;margin-left:25%;margin-right:25%">
+    <div>
+      <mat-form-field style="width:80%">
+        <mat-label>Глобальное сообщение</mat-label>
+        <textarea style="max-height:300px" autocomplete="off" matInput placeholder="Глобальное сообщение" formControlName="GlobalTgMsg"></textarea>
+      </mat-form-field>
+      <button style="margin-left:5px" color="primary" (click)="sendGlobal()" mat-raised-button>
+        <span class="material-icons">
+          send
+        </span>
+        <span style="align-self:end">
+          Отправить
+        </span>
+      </button>
+    </div>
+  </mat-card>
+
+
+</form>
+
+
+
+<form [formGroup]="PaymentSettings" autocomplete="off">
+  <mat-card style="margin-top:2%;margin-left:25%;margin-right:25%;margin-bottom:5%">
+    <mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          Платежи
+        </mat-card-title>
+        <mat-card-subtitle>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+
+
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Id магазина</mat-label>
+          <input autocomplete="off" matInput placeholder="Id магазина" formControlName="ShopId">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Ключ магазина</mat-label>
+          <input autocomplete="off" matInput placeholder="Ключ магазина" formControlName="ShopKey">
+        </mat-form-field>
+      </div>
+
+      
+
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card style="margin-top:2%;margin-left:25%;margin-right:25%;margin-bottom:10%">
+    <mat-card-header>
+      <mat-card-title>
+        SMTP
+      </mat-card-title>
+    </mat-card-header>
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Email получателя</mat-label>
+        <input autocomplete="off" matInput placeholder="Email получателя" formControlName="EmailReciever">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Email отправителя</mat-label>
+        <input autocomplete="off" matInput placeholder="Email отправителя" formControlName="EmailSender">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Имя отправителя</mat-label>
+        <input autocomplete="off" matInput placeholder="Имя отправителя" formControlName="SenderName">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>SMTP сервер</mat-label>
+        <input autocomplete="off" matInput placeholder="SMTP сервер" formControlName="SmtpServer">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>SMTP порт</mat-label>
+        <input autocomplete="off" matInput placeholder="SMTP порт" formControlName="SmtpPort">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>Smtp юзер</mat-label>
+        <input autocomplete="off" matInput placeholder="Smtp юзер" formControlName="SmtpUser">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width:100%">
+        <mat-label>SMTP пароль</mat-label>
+        <input autocomplete="off" matInput placeholder="SMTP пароль" formControlName="SmtpPassword">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox color="primary" formControlName="SmtpSSL">SSL</mat-checkbox>
+    </div>
+  </mat-card>
+
+</form>
+
+

@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.mat-cell:nth-child(even) {
+  background-color: #f2f4f7;
+}
+
+.mat-cell:nth-child(odd) {
+  background-color: #e4e4e4;
+}
+
+.header {
+  margin-left: 20%;
+  margin-right: 20%;
+ 
+  text-align: center
+}
+
+h4 {
+  padding-top: 2%
+}

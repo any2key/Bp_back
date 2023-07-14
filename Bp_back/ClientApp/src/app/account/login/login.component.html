@@ -1,0 +1,49 @@
+
+<div style="margin-left:35%;margin-right:35%;margin-top:10%">
+
+  <mat-card>
+    <mat-card-content style="text-align:center">
+      <!--<h3>
+        Добро пожаловать в систему генерации ключей
+      </h3>
+      <p>
+        Для продолжения работы введите свои учетные данные в форму.
+        Если у вас нет учетных данных - обратитесь к администратору системы.
+      </p>-->
+
+    </mat-card-content>
+  </mat-card>
+</div>
+<div style="margin-left:40%;margin-right:40%;margin-top:1%">
+
+  <mat-card [formGroup]="login">
+    <mat-card-header>
+      <mat-card-title>
+        Авторизация
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Логин</mat-label>
+          <input matInput (keyup.enter)="loginMe()" placeholder="Логин" formControlName="Login">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Пароль</mat-label>
+          <input type="password" (keyup.enter)="loginMe()" matInput placeholder="Пароль" formControlName="Password">
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="primary" (keyup.enter)="keyUpFunction($event)" style="width:100%" (click)="loginMe()">Войти</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+
+
+
+

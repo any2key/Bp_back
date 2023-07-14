@@ -1,0 +1,85 @@
+<div style="margin-left:5%;margin-right:5%;margin-top:1%">
+  <div class="card" style="width:150px;height:150px;background-color:aliceblue;margin-left:25%">
+    <div style="width:100%;text-align:center"><h2>Всего</h2></div>
+    <div style="height:50%">
+      <div style="cursor:pointer" (click)="goToKeys(0)" class="textCard"><h2>{{total}}</h2></div>
+    </div>
+  </div>
+
+  <div class="card" style="width:150px;height:150px;background-color:aliceblue">
+    <div style="width:100%;text-align:center"><h2>На подписке</h2></div>
+    <div style="height:50%">
+      <div style="cursor:pointer" (click)="goToKeys(1)" class="textCard"><h2>{{subscribed}}</h2></div>
+    </div>
+  </div>
+
+  <div class="card" style="width:150px;height:150px;background-color:aliceblue">
+    <div style="width:100%;text-align:center"><h2>Бессрочные</h2></div>
+    <div style="height:50%">
+      <div style="cursor:pointer" (click)="goToKeys(2)" class="textCard"><h2>{{infinite}}</h2></div>
+    </div>
+  </div>
+
+  <div style="width:100%;margin-top:5%">
+    <mat-progress-bar *ngIf="isLoaded" mode="indeterminate"></mat-progress-bar>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="changed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата изменения </th>
+        <td mat-cell *matCellDef="let element"> {{element.changed|date:"dd.MM.yyyy HH:mm"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef> Ключ </th>
+        <td mat-cell *matCellDef="let element" style="cursor:pointer" (click)="goToKey(element.key)"> {{element.key}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="crmTaskId">
+        <th mat-header-cell *matHeaderCellDef> Id задачи в CRM </th>
+        <td mat-cell  style="cursor:pointer" (click)="linkTask(element.crmTaskId)"  *matCellDef="let element"> {{element.crmTaskId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Пользователь </th>
+        <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="chDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Изменение даты </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.prevDate|date:"dd.MM.yyyy"}} ->{{element.expired|date:"dd.MM.yyyy"}}
+          <span *ngIf="element.prevDate!=null">
+            <span *ngIf="!IsInfin(element.expired,element.prevDate)">
+              (<span *ngIf="diffDate(element.expired,element.prevDate)>0">+</span>{{diffDate(element.expired,element.prevDate)}})
+            </span>
+          </span>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Клиент </th>
+        <td mat-cell style="cursor:pointer" (click)="linkClient(element.client)" *matCellDef="let element"> {{element.client.name}} {{element.client.lastname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef> Комментарий </th>
+        <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</div>
+

@@ -1,3 +1,4 @@
+using Bp_Hub.Services.ServerManager;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bp_Hub.Controllers
@@ -12,15 +13,18 @@ namespace Bp_Hub.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IServerManager serverManager;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,IServerManager manager)
         {
             _logger = logger;
+            this.serverManager=manager;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            serverManager.AddServer();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

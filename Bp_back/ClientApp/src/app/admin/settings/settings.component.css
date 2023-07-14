@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.mat-cell:nth-child(even) {
+  background-color: #f2f4f7;
+}
+
+.mat-cell:nth-child(odd) {
+  background-color: #e4e4e4;
+}

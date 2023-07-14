@@ -1,6 +1,302 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</body>
+
+<mat-sidenav-container class="sidenav-container" style="height: 100vh">
+
+  <mat-sidenav *ngIf="Role=='admin'" #drawer class="sidenav" fixedInViewport mode="side" [opened]="false" [autoFocus]="false" style="width:17rem;height:100vh">
+    <mat-list role="list">
+      <!--<mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/users')">
+          <span class="material-icons">
+            person
+          </span>
+          <span style="align-self:end">
+            Пользователи
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>-->
+
+      <div mat-subheader>Главная</div>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/dashboard')">
+          <span class="material-icons">
+            grid_view
+          </span>
+          <span style="align-self:end">
+            Дашборд
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+
+      <div mat-subheader>Управление ключами</div>
+
+
+
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/key')">
+          <span class="material-icons">
+            key
+          </span>
+          <span style="align-self:end">
+            Регистрация ключа
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/switch')">
+          <span class="material-icons">
+            move_down
+          </span>
+          <span style="align-self:end">
+            Перенос ключа
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <div mat-subheader>Истории действий</div>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/switchhistory')">
+          <span class="material-icons">
+            update
+          </span>
+          <span style="align-self:end">
+            История переносов
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/keyhistory')">
+          <span class="material-icons">
+            history
+          </span>
+          <span style="align-self:end">
+            Истории ключей
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <div mat-subheader>Списки</div>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/clients')">
+          <span class="material-icons">
+            group
+          </span>
+          <span style="align-self:end">
+            Клиенты
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/keys')">
+          <span class="material-icons">
+            list
+          </span>
+          <span style="align-self:end">
+            Ключи
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/payments')">
+          <span class="material-icons">
+            payments
+          </span>
+          <span style="align-self:end">
+            Платежи
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <mat-list-item role="listitem" style=" position:absolute;bottom:0px">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/settings')">
+          <span class="material-icons">
+            settings
+          </span>
+          <span style="align-self:end">
+            Настройки
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <!--<mat-list-item role="listitem" >
+        <button mat-button style="width:100%;text-align:start" (click)="logout()">
+          <span class="material-icons">
+            logout
+          </span>
+          <span style="align-self:end">
+            Выйти
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>-->
+    </mat-list>
+  </mat-sidenav>
+
+
+
+  <mat-sidenav *ngIf="Role=='user'" #drawer class="sidenav" fixedInViewport mode="side" [opened]="false" [autoFocus]="false" style="width:17rem;height:100vh">
+    <mat-list role="list">
+      <div mat-subheader>Управление ключами</div>
+
+
+
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/user/key')">
+          <span class="material-icons">
+            key
+          </span>
+          <span style="align-self:end">
+            Регистрация ключа
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/switch')">
+          <span class="material-icons">
+            move_down
+          </span>
+          <span style="align-self:end">
+            Перенос ключа
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <div mat-subheader>Истории действий</div>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/switchhistory')">
+          <span class="material-icons">
+            update
+          </span>
+          <span style="align-self:end">
+            История переносов
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/user/keyhistory')">
+          <span class="material-icons">
+            history
+          </span>
+          <span style="align-self:end">
+            Истории ключей
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+      <div mat-subheader>Списки</div>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/user/clients')">
+          <span class="material-icons">
+            group
+          </span>
+          <span style="align-self:end">
+            Клиенты
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/user/keys')">
+          <span class="material-icons">
+            list
+          </span>
+          <span style="align-self:end">
+            Ключи
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/user/payments')">
+          <span class="material-icons">
+            payments
+          </span>
+          <span style="align-self:end">
+            Платежи
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav *ngIf="Role=='smuser'" #drawer class="sidenav" fixedInViewport mode="side" [opened]="false" [autoFocus]="false" style="width:17rem;height:100vh">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/smuser/key')">
+          <span class="material-icons">
+            key
+          </span>
+          <span style="align-self:end">
+            Регистрация ключа
+          </span>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+
+
+
+    </mat-list>
+  </mat-sidenav>
+
+
+
+  <mat-toolbar color="primary">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/">Личный кабинет</a>
+    <button mat-button style="margin-left:auto">
+      <span *ngIf="User!=null">
+        <span>{{User}}</span>
+      </span>
+    </button>
+    <button mat-button (click)="logout()" style="margin-left:5px">
+      <span *ngIf="User!=null">
+        <span>Выйти</span>
+      </span>
+    </button>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+
+</mat-sidenav-container>
+
+
