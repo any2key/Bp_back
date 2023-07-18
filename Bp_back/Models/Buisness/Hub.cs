@@ -1,0 +1,17 @@
+﻿using Bp_back.Models.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bp_back.Models.Buisness
+{
+    public class Hub
+    {
+        [Key]
+        public Guid Id { get; set; }
+        public string Url { get; set; }
+        public DateTime Added { get; set; }
+        public User User { get; set; }
+        [NotMapped]
+        public List<Server> Servers { get; set; }
+    }
+}

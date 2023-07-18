@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
                             });
 });
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+var connection = Environment.MachineName.ToLower() == "plnw0195" ? new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("WorkConnection") : new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("HomeConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
 
 

@@ -4,16 +4,16 @@
   <mat-sidenav *ngIf="Role=='admin'" #drawer class="sidenav" fixedInViewport mode="side" [opened]="false" [autoFocus]="false" style="width:17rem;height:100vh">
     <mat-list role="list">
       <!--<mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/users')">
-          <span class="material-icons">
-            person
-          </span>
-          <span style="align-self:end">
-            Пользователи
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>-->
+    <button mat-button style="width:100%;text-align:start" (click)="route('/admin/users')">
+      <span class="material-icons">
+        person
+      </span>
+      <span style="align-self:end">
+        Пользователи
+      </span>
+    </button>
+  </mat-list-item>
+  <mat-divider></mat-divider>-->
 
       <div mat-subheader>Главная</div>
 
@@ -31,100 +31,45 @@
 
 
 
-      <div mat-subheader>Управление ключами</div>
-
-
-
-
-      <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/key')">
-          <span class="material-icons">
-            key
-          </span>
-          <span style="align-self:end">
-            Регистрация ключа
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/switch')">
-          <span class="material-icons">
-            move_down
-          </span>
-          <span style="align-self:end">
-            Перенос ключа
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <div mat-subheader>Истории действий</div>
-
-      <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/switchhistory')">
-          <span class="material-icons">
-            update
-          </span>
-          <span style="align-self:end">
-            История переносов
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/keyhistory')">
-          <span class="material-icons">
-            history
-          </span>
-          <span style="align-self:end">
-            Истории ключей
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
       <div mat-subheader>Списки</div>
 
       <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/clients')">
+        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/hubs')">
           <span class="material-icons">
-            group
+            hub
           </span>
           <span style="align-self:end">
-            Клиенты
+            Хабы
           </span>
         </button>
       </mat-list-item>
       <mat-divider></mat-divider>
-
 
       <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/keys')">
+        <button mat-button style="width:100%;text-align:start" (click)="route('admin/servers')">
           <span class="material-icons">
-            list
+            dns
           </span>
           <span style="align-self:end">
-            Ключи
+            Сервера
           </span>
         </button>
       </mat-list-item>
       <mat-divider></mat-divider>
-
 
       <mat-list-item role="listitem">
-        <button mat-button style="width:100%;text-align:start" (click)="route('/admin/payments')">
+        <button mat-button style="width:100%;text-align:start" (click)="route('admin/players')">
           <span class="material-icons">
-            payments
+            face
           </span>
           <span style="align-self:end">
-            Платежи
+            Игроки
           </span>
         </button>
       </mat-list-item>
       <mat-divider></mat-divider>
+
+      
 
 
       <mat-list-item role="listitem" style=" position:absolute;bottom:0px">
@@ -141,16 +86,16 @@
 
 
       <!--<mat-list-item role="listitem" >
-        <button mat-button style="width:100%;text-align:start" (click)="logout()">
-          <span class="material-icons">
-            logout
-          </span>
-          <span style="align-self:end">
-            Выйти
-          </span>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>-->
+    <button mat-button style="width:100%;text-align:start" (click)="logout()">
+      <span class="material-icons">
+        logout
+      </span>
+      <span style="align-self:end">
+        Выйти
+      </span>
+    </button>
+  </mat-list-item>
+  <mat-divider></mat-divider>-->
     </mat-list>
   </mat-sidenav>
 

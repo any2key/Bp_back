@@ -50,8 +50,8 @@ export const environment = {
   production: false,
 
 
-  //apiUrl: 'https://localhost:7133'
-  apiUrl: ''
+  apiUrl: 'https://localhost:7088'
+  //apiUrl: ''
 
 
 };

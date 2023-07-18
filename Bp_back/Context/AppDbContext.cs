@@ -1,4 +1,5 @@
-﻿using Bp_back.Models.Identity;
+﻿using Bp_back.Models.Buisness;
+using Bp_back.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bp_back.Context
@@ -7,6 +8,7 @@ namespace Bp_back.Context
     {
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Hub> Hubs { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
           : base(options)
@@ -21,7 +23,7 @@ namespace Bp_back.Context
 
         static DbContextOptions CreateOptions()
         {
-            var connection = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
+            var connection = Environment.MachineName.ToLower()== "plnw0195"? new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("WorkConnection"): new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("HomeConnection");
             var b = new DbContextOptionsBuilder().UseSqlServer(connection);
             return b.Options;
         }
