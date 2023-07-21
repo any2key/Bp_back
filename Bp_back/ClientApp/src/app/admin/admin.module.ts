@@ -8,6 +8,10 @@ import { routing } from './admin.routing';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HubsComponent } from './hubs/hubs.component';
+import { ServersComponent } from './servers/servers.component';
+import { PlayersComponent } from './players/players.component';
+import { AddHubComponent } from './hubs/add-hub/add-hub.component';
 
 
 
@@ -19,6 +23,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AddUserComponent,
     SettingsComponent,
     DashboardComponent,
+    HubsComponent,
+    ServersComponent,
+    PlayersComponent,
+    AddHubComponent,
   ],
   imports: [
     CommonModule,

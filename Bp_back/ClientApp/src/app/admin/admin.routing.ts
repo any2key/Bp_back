@@ -2,8 +2,11 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AdminAuthGuard } from '../guards/adminAuth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HubsComponent } from './hubs/hubs.component';
+import { PlayersComponent } from './players/players.component';
 
 import { RootComponent } from './root/root.component';
+import { ServersComponent } from './servers/servers.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
 
@@ -20,6 +23,9 @@ export const routing: ModuleWithProviders<any> = RouterModule.forChild([
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'hubs', component: HubsComponent },
+      { path: 'servers', component: ServersComponent },
+      { path: 'players', component: PlayersComponent },
     ]
   }
 ]);

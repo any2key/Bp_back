@@ -2,23 +2,40 @@
   <div class="card" style="width:150px;height:150px;background-color:aliceblue;margin-left:25%">
     <div style="width:100%;text-align:center"><h2>Хабы</h2></div>
     <div style="height:50%">
-      <div style="cursor:pointer" (click)="goToKeys(0)" class="textCard"><h2>{{total}}</h2></div>
+      <div *ngIf="!isLoaded" (click)="goTo('hubs')" style="cursor:pointer" class="textCard"><h2><span style="color:darkgreen">{{dashboard.totalHubs}}</span> из {{dashboard.onHubs}}</h2></div>
+      <div *ngIf="isLoaded">
+        <mat-spinner></mat-spinner>
+      </div>
     </div>
   </div>
 
   <div class="card" style="width:150px;height:150px;background-color:aliceblue">
     <div style="width:100%;text-align:center"><h2>Сервера</h2></div>
     <div style="height:50%">
-      <div style="cursor:pointer" (click)="goToKeys(1)" class="textCard"><h2>{{subscribed}}</h2></div>
+      <div *ngIf="!isLoaded" (click)="goTo('servers')" style="cursor:pointer" class="textCard">
+        <h2>
+          {{dashboard.servers}}
+        </h2>
+      </div>
+      <div *ngIf="isLoaded">
+        <mat-spinner></mat-spinner>
+      </div>
     </div>
   </div>
 
   <div class="card" style="width:150px;height:150px;background-color:aliceblue">
     <div style="width:100%;text-align:center"><h2>Игроки</h2></div>
     <div style="height:50%">
-      <div style="cursor:pointer" (click)="goToKeys(2)" class="textCard"><h2>{{infinite}}</h2></div>
+      <div *ngIf="!isLoaded" (click)="goTo('players')" style="cursor:pointer" class="textCard"><h2>{{dashboard.players}}</h2></div>
+      <div *ngIf="isLoaded">
+        <mat-spinner></mat-spinner>
+      </div>
     </div>
   </div>
 
 </div>
+
+<!--<button class="float" mat-fab color="primary">
+  <mat-icon>add</mat-icon>
+</button>-->
 

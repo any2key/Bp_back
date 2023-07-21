@@ -28,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
 
@@ -74,7 +75,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatMenuModule,
     MatStepperModule,
     ClipboardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },

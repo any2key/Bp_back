@@ -1,4 +1,4 @@
-﻿namespace Bp_back.Models.Responses
+﻿namespace Bp_Hub.Models.Responses
 {
     public class DataResponse<T> : ErrorResponse
     {

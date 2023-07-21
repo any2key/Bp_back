@@ -1,5 +1,6 @@
 
 using Bp_back.Context;
+using Bp_back.Repositories;
 using Bp_back.Services;
 using Bp_back.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,7 +37,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conn
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IDataService, DataService>();
+builder.Services.AddScoped<IHubRepository, HubRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddTransient<IHttpService, HttpService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

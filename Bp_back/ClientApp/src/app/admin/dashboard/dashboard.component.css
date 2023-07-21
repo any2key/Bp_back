@@ -42,3 +42,8 @@ table {
   background-color: #e4e4e4;
 }
 
+.float {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}

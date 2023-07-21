@@ -1,0 +1,32 @@
+
+
+<mat-card>
+  <form [formGroup]="hub" autocomplete="off">
+    <mat-card-header>
+      <mat-card-title>
+        {{header}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Название</mat-label>
+          <input autocomplete="off" matInput placeholder="Название" formControlName="name">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Url</mat-label>
+          <input autocomplete="off" matInput placeholder="Url" formControlName="url">
+        </mat-form-field>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions style="padding-left:10%;padding-right:10%">
+      <button cdkFocusInitial type="submit"  mat-raised-button color="primary" style="width: 40%" (click)="apply()" #btnRef="matButton">Сохранить</button>
+      <button mat-raised-button style="width: 40%" (click)="onNoClick()">Отмена</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

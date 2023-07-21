@@ -50,7 +50,7 @@ namespace Bp_Hub.Services.ServerManager
 
         public IEnumerable<TcpServer> GetServers()
         {
-            throw new NotImplementedException();
+            return servers;
         }
 
         public TcpServer ServerInfo(int port)

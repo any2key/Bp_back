@@ -15,14 +15,14 @@ namespace Bp_back.Repositories
         }
 
 
-        public void AddHub(string url, User user)
+        public void AddHub(string url, string name, int userId)
         {
             BpEx.Run(db =>
             {
                 if (db.Hubs.Any(e => e.Url.ToLower() == url.ToLower()))
                     throw new Exception($"Хаб с данным Url уже существует");
-
-                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user });
+                var user = db.Users.First(e => e.Id == userId);
+                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user, Url = url, Name = name });
                 db.SaveChanges();
             });
         }
@@ -32,8 +32,8 @@ namespace Bp_back.Repositories
             return BpEx.Run(db =>
             {
                 var hub = db.Hubs.First(x => x.Id == id);
-                hub.Active = PingHub(id);
-                hub.Servers = GetHubServers(id);
+                hub.Active = PingHub(hub.Url);
+                hub.Servers = GetHubServers(hub.Url);
                 return hub;
             }
             );
@@ -44,10 +44,11 @@ namespace Bp_back.Repositories
             return BpEx.Run(db =>
             {
                 var hubs = db.Hubs.ToArray();
+               
                 Parallel.ForEach(hubs, (hub) =>
                 {
-                    hub.Active = PingHub(hub.Id);
-                    hub.Servers = GetHubServers(hub.Id);
+                    hub.Active = PingHub(hub.Url);
+                    hub.Servers = hub.Active ? GetHubServers(hub.Url) : new List<Server>();
                 });
 
                 return hubs;
@@ -56,17 +57,22 @@ namespace Bp_back.Repositories
         }
 
 
-        public IEnumerable<Server> GetHubServers(Guid id)
+        public IEnumerable<Server> GetHubServers(string url)
         {
-            var hub = GetHub(id);
-            return _httpService.GetAsync<DataResponse<IEnumerable<Server>>>($"{hub.Url}/Server/List").Result.Data;
+            
+            return _httpService.GetAsync<DataResponse<IEnumerable<Server>>>($"{url}/api/Server/List").Result.Data;
         }
 
-        public bool PingHub(Guid id)
+        public IEnumerable<Server> GetHubServers(Guid id)
         {
-            var hub = GetHub(id);
+            var hub = BpEx.Run(db=>db.Hubs.First(e=>e.Id==id));
+            return GetHubServers(hub.Url);
+        }
 
-            try { var res = _httpService.GetAsync<Response>($"{hub.Url}/Settings/Ping").Result; }
+        public bool PingHub(string url)
+        {
+
+            try { var res = _httpService.GetAsync<Response>($"{url}/api/Settings/Ping").Result; }
             catch { return false; }
 
             return true;
@@ -74,7 +80,7 @@ namespace Bp_back.Repositories
 
         public void RemoveHub(Guid id)
         {
-            BpEx.Run(db => 
+            BpEx.Run(db =>
             {
                 db.Hubs.Remove(db.Hubs.FirstOrDefault(e => e.Id == id));
                 db.SaveChanges();
@@ -83,10 +89,11 @@ namespace Bp_back.Repositories
 
         public void UpdateHub(Hub hub)
         {
-            BpEx.Run(db => 
+            BpEx.Run(db =>
             {
-                var dbHub=db.Hubs.FirstOrDefault(e=>e.Id== hub.Id);
+                var dbHub = db.Hubs.FirstOrDefault(e => e.Id == hub.Id);
                 dbHub.Url = hub.Url;
+                dbHub.Name = hub.Name;
                 db.SaveChanges();
             });
         }
