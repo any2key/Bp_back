@@ -12,6 +12,8 @@ namespace Bp_back.Models.Buisness
         public DateTime Added { get; set; }
         public User User { get; set; }
         [NotMapped]
-        public List<Server> Servers { get; set; }
+        public IEnumerable<Server>? Servers { get; set; }
+        [NotMapped]
+        public bool Active { get; set; }
     }
 }

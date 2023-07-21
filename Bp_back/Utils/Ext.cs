@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bp_back.Models.Buisness;
+using Bp_back.Models.Front;
+using Bp_back.Repositories;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -66,8 +69,11 @@ namespace Bp_back.Utils
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ToJson(this object obj)
+        public static string ToJson(this object? obj)
         {
+            if (obj == null)
+                return Newtonsoft.Json.JsonConvert.SerializeObject(string.Empty);
+
             return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
         }
         /// <summary>
@@ -80,9 +86,6 @@ namespace Bp_back.Utils
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
         }
-
-
-
 
     }
 
