@@ -23,11 +23,11 @@ namespace Bp_back.Controllers
         [HttpGet]
         [Route("AddHub")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddHub(string url, string name)
+        public async Task<IActionResult> AddHub(string url, int port, string name)
         {
             return SafeRun(_ =>
             {
-                hubRepository.AddHub(url, name, UserID.Value);
+                hubRepository.AddHub(url, port, name, UserID.Value);
                 return ApiResponse.OK;
             });
         }
@@ -53,7 +53,7 @@ namespace Bp_back.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateHub([FromBody] Hub hub)
         {
-            return SafeRun(_ => 
+            return SafeRun(_ =>
             {
                 hubRepository.UpdateHub(hub);
                 return ApiResponse.OK;

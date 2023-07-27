@@ -23,9 +23,16 @@
         </mat-form-field>
       </div>
 
+      <div>
+        <mat-form-field style="width:100%">
+          <mat-label>Порт</mat-label>
+          <input autocomplete="off" matInput placeholder="Порт" formControlName="port">
+        </mat-form-field>
+      </div>
+
     </mat-card-content>
     <mat-card-actions style="padding-left:10%;padding-right:10%">
-      <button cdkFocusInitial type="submit"  mat-raised-button color="primary" style="width: 40%" (click)="apply()" #btnRef="matButton">Сохранить</button>
+      <button cdkFocusInitial type="submit" mat-raised-button color="primary" style="width: 40%" (click)="apply()" #btnRef="matButton">Сохранить</button>
       <button mat-raised-button style="width: 40%" (click)="onNoClick()">Отмена</button>
     </mat-card-actions>
   </form>

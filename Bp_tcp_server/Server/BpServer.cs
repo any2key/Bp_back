@@ -17,6 +17,10 @@ namespace Bp_tcp_server.Server
         private readonly IBpConfiguration config;
 
         private List<Connection> connections = new List<Connection>();
+
+        private bool active;
+        public bool Active { get => active; }
+
         public BpServer(IBpLogger logger, IBpConfiguration config)
         {
             this.logger = logger;
@@ -54,6 +58,7 @@ namespace Bp_tcp_server.Server
                 tcpListener = new TcpListener(IPAddress.Any, config.Port);
                 tcpListener.Start();
                 logger.Log($"Server Started...");
+                active = true;
 
                 while (true)
                 {
@@ -74,13 +79,14 @@ namespace Bp_tcp_server.Server
 
         }
 
-        protected internal void Disconnect()
+        public void Disconnect()
         {
             foreach (var connection in connections)
             {
                 connection.Close(); //отключение клиента
             }
             tcpListener.Stop(); //остановка сервера
+            active = false;
         }
 
 

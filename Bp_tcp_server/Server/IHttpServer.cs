@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bp_tcp_server.Server
 {
-    internal interface IBbServer
+    public interface IHttpServer
     {
         bool Active { get; }
-        Task Start();
-        void Disconnect();
+        void Start();
+        void StartTcp();
+        void StopTcp();
+        void Listen();
     }
 }

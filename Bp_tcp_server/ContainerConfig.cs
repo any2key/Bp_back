@@ -16,9 +16,10 @@ namespace Bp_tcp_server
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<BpServer>().As<IBbServer>();
             builder.RegisterType<FileLogger>().As<IBpLogger>();
+            builder.RegisterType<BpServer>().As<IBbServer>().SingleInstance();
             builder.RegisterType<BpConfiguration>().As<IBpConfiguration>().SingleInstance();
+            builder.RegisterType<HttpServer>().As<IHttpServer>().SingleInstance();
             return builder.Build();
         }
     }

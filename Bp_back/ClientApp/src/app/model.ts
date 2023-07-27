@@ -94,6 +94,7 @@ export interface Hub {
   url: string;
   name: string;
   added: string;
+  port: number;
   user: User;
   servers: Server[] | null;
   active: boolean;

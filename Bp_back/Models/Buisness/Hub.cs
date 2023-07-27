@@ -9,6 +9,7 @@ namespace Bp_back.Models.Buisness
         [Key]
         public Guid Id { get; set; }
         public string Url { get; set; }
+        public int Port { get; set; }
         public string Name { get; set; }
         public DateTime Added { get; set; }
         public User User { get; set; }

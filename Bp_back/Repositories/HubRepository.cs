@@ -15,14 +15,14 @@ namespace Bp_back.Repositories
         }
 
 
-        public void AddHub(string url, string name, int userId)
+        public void AddHub(string url,int port, string name, int userId)
         {
             BpEx.Run(db =>
             {
                 if (db.Hubs.Any(e => e.Url.ToLower() == url.ToLower()))
                     throw new Exception($"Хаб с данным Url уже существует");
                 var user = db.Users.First(e => e.Id == userId);
-                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user, Url = url, Name = name });
+                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user, Url = url, Name = name,Port=port });
                 db.SaveChanges();
             });
         }
@@ -32,8 +32,8 @@ namespace Bp_back.Repositories
             return BpEx.Run(db =>
             {
                 var hub = db.Hubs.First(x => x.Id == id);
-                hub.Active = PingHub(hub.Url);
-                hub.Servers = GetHubServers(hub.Url);
+                hub.Active = PingHub($"{hub.Url}:{hub.Port}");
+                hub.Servers = GetHubServers($"{hub.Url}:{hub.Port}");
                 return hub;
             }
             );
@@ -47,8 +47,8 @@ namespace Bp_back.Repositories
                
                 Parallel.ForEach(hubs, (hub) =>
                 {
-                    hub.Active = PingHub(hub.Url);
-                    hub.Servers = hub.Active ? GetHubServers(hub.Url) : new List<Server>();
+                    hub.Active = PingHub($"{hub.Url}:{hub.Port}");
+                    hub.Servers = hub.Active ? GetHubServers($"{hub.Url}:{hub.Port}") : new List<Server>();
                 });
 
                 return hubs;
@@ -66,7 +66,7 @@ namespace Bp_back.Repositories
         public IEnumerable<Server> GetHubServers(Guid id)
         {
             var hub = BpEx.Run(db=>db.Hubs.First(e=>e.Id==id));
-            return GetHubServers(hub.Url);
+            return GetHubServers($"{hub.Url}:{hub.Port}");
         }
 
         public bool PingHub(string url)
@@ -93,6 +93,7 @@ namespace Bp_back.Repositories
             {
                 var dbHub = db.Hubs.FirstOrDefault(e => e.Id == hub.Id);
                 dbHub.Url = hub.Url;
+                dbHub.Port = hub.Port;
                 dbHub.Name = hub.Name;
                 db.SaveChanges();
             });

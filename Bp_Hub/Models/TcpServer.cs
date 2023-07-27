@@ -2,6 +2,7 @@
 {
     public class TcpServer
     {
+        public int ProcessId { get; set; }
         public int Port { get; set; }
         public int Capacity { get; set; }
     }

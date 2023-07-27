@@ -9,5 +9,6 @@ namespace Bp_tcp_server.Configuration
     internal interface IBpConfiguration
     {
         public int Port { get; set; }
+        public int HttpPort { get; set; }
     }
 }

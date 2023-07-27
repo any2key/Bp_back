@@ -26,6 +26,7 @@ export class AddHubComponent implements OnInit {
     {
       name: new FormControl('', [Validators.required]),
       url: new FormControl('', [Validators.required]),
+      port: new FormControl('', [Validators.required]),
     });
 
   onNoClick(): void {
