@@ -47,7 +47,7 @@ export class AddHubComponent implements OnInit {
     result.data = p;
 
     if (this.data == null)
-      this.api.getData<APIResponse>(`hub/addhub?url=${this.hub.get('url').value}&name=${this.hub.get('name').value}`,).subscribe(res => {
+      this.api.getData<APIResponse>(`hub/addhub?url=${this.hub.get('url').value}&port=${this.hub.get('port').value}&name=${this.hub.get('name').value}`,).subscribe(res => {
         if (!res.isOk) {
           this.ui.show(res.message);
         } else {

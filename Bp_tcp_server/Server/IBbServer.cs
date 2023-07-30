@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bp_tcp_server.Server
 {
-    internal interface IBbServer
+    public interface IBbServer
     {
         bool Active { get; }
         Task Start();

@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 
 namespace Bp_tcp_server.Server
 {
-    internal class BpServer : IBbServer
+    public class BpServer : IBbServer
     {
         private IBpLogger logger;
         private TcpListener tcpListener;
         private readonly IBpConfiguration config;
 
         private List<Connection> connections = new List<Connection>();
+
+        private List<Room> Rooms = new List<Room>();
 
         private bool active;
         public bool Active { get => active; }
@@ -90,7 +92,7 @@ namespace Bp_tcp_server.Server
         }
 
 
-        class Connection
+       public class Connection
         {
             public string Id { get; set; }
             protected internal StreamWriter Writer { get; }

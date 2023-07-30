@@ -1,4 +1,5 @@
 ﻿using Bp_Hub.Models;
+using Bp_Hub.Models.Buisness;
 
 namespace Bp_Hub.Services.ServerManager
 {
@@ -9,5 +10,6 @@ namespace Bp_Hub.Services.ServerManager
         void RemoveServer(int port);
         IEnumerable<TcpServer> GetServers();
         TcpServer ServerInfo(int port);
+        IEnumerable<Server> GetDTOServers();
     }
 }

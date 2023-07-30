@@ -16,6 +16,8 @@ namespace Bp_back.Models.Buisness
         [NotMapped]
         public IEnumerable<Server>? Servers { get; set; }
         [NotMapped]
+        public int PlayersCount { get; set; }
+        [NotMapped]
         public bool Active { get; set; }
     }
 }

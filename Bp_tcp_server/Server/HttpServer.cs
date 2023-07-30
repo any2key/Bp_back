@@ -65,6 +65,7 @@ namespace Bp_tcp_server.Server
                         break;
                     case "stop":
                         listen = false;
+                        StopTcp();
                         break;
                     default: break;
                 }

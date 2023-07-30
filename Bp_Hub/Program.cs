@@ -1,3 +1,4 @@
+using Bp_Hub.Services.Http;
 using Bp_Hub.Services.ServerManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IServerManager,ServerManager>();
+builder.Services.AddSingleton<IHttpService,HttpService>();
 
 var app = builder.Build();
 
