@@ -62,9 +62,22 @@ namespace Bp_Hub.Services.ServerManager
             servers.Add(new TcpServer() { Capacity = 100, Port = port, ProcessId = process.Id, HttpPort = httpPort });
         }
 
+        public void StartTcpListen(int port) { }
+
         public void RemoveServer(int port)
         {
-            throw new NotImplementedException();
+            foreach (var server in servers)
+            {
+                try
+                {
+                    Process p = Process.GetProcessById(server.ProcessId);
+                    p.Kill();
+                }
+                catch
+                {
+                    continue;
+                }
+            }
             //Разорвать соединение, убить процесс
         }
 
@@ -82,7 +95,7 @@ namespace Bp_Hub.Services.ServerManager
                 servers.Add(new Server()
                 {
                     Id = ts.ProcessId,
-                    PlayersCount = PlayerCount($"http://localhost:{ts.Port}"),
+                    PlayersCount = PlayerCount($"http://localhost:{ts.HttpPort}"),
                     Port = ts.Port
                 });
             });

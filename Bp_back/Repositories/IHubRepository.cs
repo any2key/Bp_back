@@ -13,6 +13,7 @@ namespace Bp_back.Repositories
         IEnumerable<Server> GetHubServers(Guid id);
         public bool PingHub(string url);
         public Hub GetHub(Guid id);
+        void AddServer(Guid id);
 
     }
 }

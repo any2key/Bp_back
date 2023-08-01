@@ -2,7 +2,7 @@
 {
     public class Server
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public int Port { get; set; }
         public int PlayersCount { get; set; }
     }

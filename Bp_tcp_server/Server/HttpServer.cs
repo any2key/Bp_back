@@ -1,4 +1,6 @@
 ﻿using Bp_tcp_server.Configuration;
+using Bp_tcp_server.Models.Responses;
+using Bp_tcp_server.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,9 +69,38 @@ namespace Bp_tcp_server.Server
                         listen = false;
                         StopTcp();
                         break;
+                    case "playersCount":
+                        RecieveData<int>(5);
+                        break;
                     default: break;
                 }
 
+            }
+        }
+
+
+        private void RecieveOK() => SendContent(Encoding.UTF8.GetBytes(Response.OK.ToJson()));
+
+        private void RecieveData<T>(T data) => SendContent(Encoding.UTF8.GetBytes(new DataResponse<T>() { Data = data }.ToJson()));
+
+
+        private void SendContent(byte[] bytes)
+        {
+            try
+            {
+                using Stream stream = new MemoryStream(bytes);
+                _context.Response.ContentType = "application/json";
+                _context.Response.ContentLength64 = stream.Length;
+                byte[] buffer = new byte[64 * 1024];
+                int bytesRead;
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    _context.Response.OutputStream.Write(buffer, 0, bytesRead);
+            }
+            catch (Exception ex)
+            {
+                _context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                Console.WriteLine(ex.Message);
+                _context.Response.OutputStream.Close();
             }
         }
     }

@@ -2,7 +2,9 @@
 using Bp_back.Models.Identity;
 using Bp_back.Models.Responses;
 using Bp_back.Services;
+using System;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Bp_back.Repositories
 {
@@ -15,16 +17,28 @@ namespace Bp_back.Repositories
         }
 
 
-        public void AddHub(string url,int port, string name, int userId)
+        public void AddHub(string url, int port, string name, int userId)
         {
             BpEx.Run(db =>
             {
                 if (db.Hubs.Any(e => e.Url.ToLower() == url.ToLower()))
                     throw new Exception($"Хаб с данным Url уже существует");
                 var user = db.Users.First(e => e.Id == userId);
-                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user, Url = url, Name = name,Port=port });
+                db.Hubs.Add(new Hub() { Added = DateTime.Now, User = user, Url = url, Name = name, Port = port });
                 db.SaveChanges();
             });
+        }
+
+        public void AddServer(Guid id)
+        {
+            Hub? hub = null;
+            BpEx.Run(db =>
+            {
+                 hub = db.Hubs.First(x => x.Id == id);
+            });
+            var response=_httpService.GetAsync<Response>($"{hub.Url}:{hub.Port}/api/server/addServer").Result;
+            if (!response.IsOk)
+                throw new Exception($"Что-то пошло не так");
         }
 
         public Hub GetHub(Guid id)
@@ -44,7 +58,7 @@ namespace Bp_back.Repositories
             return BpEx.Run(db =>
             {
                 var hubs = db.Hubs.ToArray();
-               
+
                 Parallel.ForEach(hubs, (hub) =>
                 {
                     hub.Active = PingHub($"{hub.Url}:{hub.Port}");
@@ -59,13 +73,13 @@ namespace Bp_back.Repositories
 
         public IEnumerable<Server> GetHubServers(string url)
         {
-            
+
             return _httpService.GetAsync<DataResponse<IEnumerable<Server>>>($"{url}/api/Server/List").Result.Data;
         }
 
         public IEnumerable<Server> GetHubServers(Guid id)
         {
-            var hub = BpEx.Run(db=>db.Hubs.First(e=>e.Id==id));
+            var hub = BpEx.Run(db => db.Hubs.First(e => e.Id == id));
             return GetHubServers($"{hub.Url}:{hub.Port}");
         }
 

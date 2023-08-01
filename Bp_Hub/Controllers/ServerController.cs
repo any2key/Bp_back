@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
+using ApiResponse = Bp_Hub.Models.Responses.Response;
 namespace Bp_Hub.Controllers
 {
     [Route("api/[controller]")]
@@ -24,6 +25,17 @@ namespace Bp_Hub.Controllers
             return SafeRun(_ =>
             {
                 return new DataResponse<IEnumerable<Server>>() { Data = serverManager.GetDTOServers() };
+            });
+        }
+
+        [HttpGet]
+        [Route("AddServer")]
+        public async Task<IActionResult> AddServer()
+        {
+            return SafeRun(_ =>
+            {
+                serverManager.AddServer();
+                return ApiResponse.OK;
             });
         }
     }

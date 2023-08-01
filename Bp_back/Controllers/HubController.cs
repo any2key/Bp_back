@@ -59,5 +59,17 @@ namespace Bp_back.Controllers
                 return ApiResponse.OK;
             });
         }
+
+        [HttpGet]
+        [Route("AddServer")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> AddServer(Guid id)
+        {
+            return SafeRun(_ =>
+            {
+                hubRepository.AddServer(id);
+                return ApiResponse.OK;
+            });
+        }
     }
 }

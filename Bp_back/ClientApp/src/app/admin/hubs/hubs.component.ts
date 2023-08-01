@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddOrUpdate, DataResponse, Hub } from '../../model';
+import { AddOrUpdate, APIResponse, DataResponse, Hub } from '../../model';
 import { ApiService } from '../../services/api.service';
 import { UiService } from '../../services/ui.service';
 import { AddHubComponent } from './add-hub/add-hub.component';
@@ -57,8 +57,19 @@ export class HubsComponent implements OnInit {
 
   }
 
-  delete(id: number) {
+  delete(id: string) {
 
+  }
+
+  addServer(id: string) {
+    this.api.getData<APIResponse>(`hub/addServer?id=${id}`).subscribe(res =>
+    {
+      if (!res.isOk)
+        this.ui.show(res.message);
+      else this.ui.show('Успешно');
+
+      this.refreshTable();
+    });
   }
 
 }
