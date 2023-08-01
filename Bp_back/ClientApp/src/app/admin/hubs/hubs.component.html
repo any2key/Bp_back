@@ -63,6 +63,11 @@
                 <span>Добавить сервер</span>
               </button>
 
+              <button *ngIf="element.servers.length>0" (click)="removeAllServers(element.id)" mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Удалить все сервера</span>
+              </button>
+
             </mat-menu>
 
           </td>

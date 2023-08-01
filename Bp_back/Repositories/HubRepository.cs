@@ -92,6 +92,18 @@ namespace Bp_back.Repositories
             return true;
         }
 
+        public void RemoveAllServers(Guid id)
+        {
+            Hub? hub = null;
+            BpEx.Run(db =>
+            {
+                hub = db.Hubs.First(x => x.Id == id);
+            });
+            var response = _httpService.GetAsync<Response>($"{hub.Url}:{hub.Port}/api/server/removeAll").Result;
+            if (!response.IsOk)
+                throw new Exception($"Что-то пошло не так");
+        }
+
         public void RemoveHub(Guid id)
         {
             BpEx.Run(db =>

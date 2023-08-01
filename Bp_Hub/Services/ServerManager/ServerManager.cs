@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using Bp_Hub.Services.Http;
 using Bp_Hub.Models.Responses;
+using System.Net.NetworkInformation;
 
 namespace Bp_Hub.Services.ServerManager
 {
@@ -21,19 +22,10 @@ namespace Bp_Hub.Services.ServerManager
         public int MaxServers = 5;
         private List<TcpServer> servers = new List<TcpServer>();
         public List<TcpServer> Servers { get => servers; }
-        public List<int> PortPool = new List<int>();
-        public List<int> HttpPortPool = new List<int>();
+        
         public ServerManager(IConfiguration config, IHttpService httpService)
         {
-            for (int i = 0; i < MaxServers; i++)
-            {
-                PortPool.Add(2708 + i);
-            }
-            for (int i = 0; i < MaxServers; i++)
-            {
-                HttpPortPool.Add(3708 + i);
-            }
-
+          
             this.config = config;
             this.httpService = httpService;
         }
@@ -43,8 +35,8 @@ namespace Bp_Hub.Services.ServerManager
         {
             if (Servers.Count >= MaxServers)
                 throw new Exception($"На хабе уже максимальное кол-во серверов");
-            var port = PortPool.First();
-            var httpPort = HttpPortPool.First();
+            var port = GetFreePort();
+            var httpPort = GetFreePort(port);
 
 
             Process process = new Process()
@@ -58,27 +50,18 @@ namespace Bp_Hub.Services.ServerManager
             };
             var res = process.Start();
             //Здесь запуск сервера
-            PortPool.Remove(port);
             servers.Add(new TcpServer() { Capacity = 100, Port = port, ProcessId = process.Id, HttpPort = httpPort });
         }
+
 
         public void StartTcpListen(int port) { }
 
         public void RemoveServer(int port)
         {
-            foreach (var server in servers)
-            {
-                try
-                {
-                    Process p = Process.GetProcessById(server.ProcessId);
-                    p.Kill();
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-            //Разорвать соединение, убить процесс
+            var server = servers.First(e => e.Port == port);
+            Process p = Process.GetProcessById(server.ProcessId);
+            p.Kill();
+            servers.Remove(server);
         }
 
         public IEnumerable<TcpServer> GetServers()
@@ -120,18 +103,44 @@ namespace Bp_Hub.Services.ServerManager
             if (isDisposed)
                 return;
             isDisposed = true;
-            foreach (var server in servers)
-            {
-                RemoveServer(server.Port);
-            }
+            RemoveAll();
 
         }
-        ~ServerManager()
+
+        public void RemoveAll()
         {
             foreach (var server in servers)
             {
-                RemoveServer(server.Port);
+                Process p = Process.GetProcessById(server.ProcessId);
+                p.Kill();
             }
+            servers.Clear();
+        }
+
+
+        private int GetFreePort(int busyPort=-1)
+        {
+            Random rnd = new Random();
+            int port = rnd.Next(2000, 60000);
+            if (busyPort == port)
+                return GetFreePort();
+            bool isAvailable = true;
+            IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+            TcpConnectionInformation[] tcpConnInfoArray = ipGlobalProperties.GetActiveTcpConnections();
+            foreach (TcpConnectionInformation tcpi in tcpConnInfoArray)
+            {
+                if (tcpi.LocalEndPoint.Port == port)
+                {
+                    isAvailable = false;
+                    return GetFreePort();
+                }
+            }
+            return port;
+        }
+
+        ~ServerManager()
+        {
+            RemoveAll();
         }
     }
 }

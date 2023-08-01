@@ -72,4 +72,15 @@ export class HubsComponent implements OnInit {
     });
   }
 
+  removeAllServers(id:string){
+    this.api.getData<APIResponse>(`hub/RemoveAllServers?id=${id}`).subscribe(res =>
+    {
+      if (!res.isOk)
+        this.ui.show(res.message);
+      else this.ui.show('Успешно');
+
+      this.refreshTable();
+    });
+  }
+
 }

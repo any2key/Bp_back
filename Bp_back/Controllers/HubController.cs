@@ -71,5 +71,19 @@ namespace Bp_back.Controllers
                 return ApiResponse.OK;
             });
         }
+
+        [HttpGet]
+        [Route("RemoveAllServers")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> RemoveAllServers(Guid id)
+        {
+            return SafeRun(_ =>
+            {
+                hubRepository.RemoveAllServers(id);
+                return ApiResponse.OK;
+            });
+        }
+
+
     }
 }

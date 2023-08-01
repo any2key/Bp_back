@@ -12,5 +12,6 @@ namespace Bp_Hub.Services.ServerManager
         TcpServer ServerInfo(int port);
         IEnumerable<Server> GetDTOServers();
         void StartTcpListen(int port) { }
+        void RemoveAll();
     }
 }

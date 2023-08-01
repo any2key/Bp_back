@@ -14,6 +14,7 @@ namespace Bp_back.Repositories
         public bool PingHub(string url);
         public Hub GetHub(Guid id);
         void AddServer(Guid id);
+        void RemoveAllServers(Guid id);
 
     }
 }

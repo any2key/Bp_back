@@ -38,5 +38,16 @@ namespace Bp_Hub.Controllers
                 return ApiResponse.OK;
             });
         }
+
+        [HttpGet]
+        [Route("RemoveAll")]
+        public async Task<IActionResult> RemoveAll()
+        {
+            return SafeRun(_ =>
+            {
+                serverManager.RemoveAll();
+                return ApiResponse.OK;
+            });
+        }
     }
 }
