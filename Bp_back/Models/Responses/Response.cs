@@ -14,5 +14,6 @@
         public static Response OK = new Response() { IsOk = true };
         public static ErrorResponse Forbidden = new ErrorResponse() { IsOk = false, Message = "Недостаточно прав для совершения этой операции" };
         public bool IsOk { get; set; }
+        public string Message { get; set; }
     }
 }

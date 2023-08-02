@@ -10,7 +10,7 @@ namespace Bp_tcp_server.Server
     {
         bool Active { get; }
         void Start();
-        void StartTcp();
+        Task StartTcp();
         void StopTcp();
         void Listen();
     }

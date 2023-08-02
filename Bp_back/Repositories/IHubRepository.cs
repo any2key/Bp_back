@@ -15,6 +15,8 @@ namespace Bp_back.Repositories
         public Hub GetHub(Guid id);
         void AddServer(Guid id);
         void RemoveAllServers(Guid id);
-
+        void StopTcp(Guid id, int port);
+        void StartTcp(Guid id, int port);
+        void RemoveServer(Guid id, int port);
     }
 }

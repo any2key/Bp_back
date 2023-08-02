@@ -35,7 +35,7 @@ namespace Bp_tcp_server.Server
             _serverThread.Start();
         }
 
-        public async void StartTcp()
+        public async Task StartTcp()
         {
             await bpServer.Start();
         }
@@ -45,7 +45,7 @@ namespace Bp_tcp_server.Server
             bpServer.Disconnect();
         }
 
-        public void Listen()
+        public async void Listen()
         {
             var route = $"http://localhost:{bpConfiguration.HttpPort}";
             _httpListener.Prefixes.Add(route + "/");
@@ -60,17 +60,23 @@ namespace Bp_tcp_server.Server
                 switch (action)
                 {
                     case "startTcp":
-                        StartTcp();
+                         StartTcp();
+                        RecieveOK();
                         break;
                     case "stopTcp":
                         StopTcp();
+                        RecieveOK();
                         break;
                     case "stop":
                         listen = false;
                         StopTcp();
+                        RecieveOK();
                         break;
                     case "playersCount":
-                        RecieveData<int>(5);
+                        RecieveData<int>(bpServer.PlayersCount);
+                        break;
+                    case "isActive":
+                        RecieveData<bool>(bpServer.Active);
                         break;
                     default: break;
                 }

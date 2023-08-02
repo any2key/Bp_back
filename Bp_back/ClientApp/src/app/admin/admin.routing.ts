@@ -25,6 +25,7 @@ export const routing: ModuleWithProviders<any> = RouterModule.forChild([
       { path: 'settings', component: SettingsComponent },
       { path: 'hubs', component: HubsComponent },
       { path: 'servers', component: ServersComponent },
+      { path: 'servers/:Id', component: ServersComponent },
       { path: 'players', component: PlayersComponent },
     ]
   }

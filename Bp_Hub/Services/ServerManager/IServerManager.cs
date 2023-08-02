@@ -10,8 +10,9 @@ namespace Bp_Hub.Services.ServerManager
         void RemoveServer(int port);
         IEnumerable<TcpServer> GetServers();
         TcpServer ServerInfo(int port);
-        IEnumerable<Server> GetDTOServers();
-        void StartTcpListen(int port) { }
+        IEnumerable<Server> GetDTOServers(bool? active);
+        void StartTcpListenAsync(int port);
+        void StopTcpListenAsync(int port);
         void RemoveAll();
     }
 }

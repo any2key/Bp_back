@@ -11,5 +11,6 @@ namespace Bp_tcp_server.Server
         bool Active { get; }
         Task Start();
         void Disconnect();
+        int PlayersCount { get; }
     }
 }

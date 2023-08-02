@@ -23,6 +23,8 @@ namespace Bp_tcp_server.Server
         private bool active;
         public bool Active { get => active; }
 
+        public int PlayersCount => connections?.Count ?? 0;
+
         public BpServer(IBpLogger logger, IBpConfiguration config)
         {
             this.logger = logger;
@@ -61,7 +63,9 @@ namespace Bp_tcp_server.Server
                 tcpListener.Start();
                 logger.Log($"Server Started...");
                 active = true;
-
+                await Task.Run(async () =>
+                {
+                });
                 while (true)
                 {
                     TcpClient client = await tcpListener.AcceptTcpClientAsync();
@@ -92,7 +96,7 @@ namespace Bp_tcp_server.Server
         }
 
 
-       public class Connection
+        public class Connection
         {
             public string Id { get; set; }
             protected internal StreamWriter Writer { get; }

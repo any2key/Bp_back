@@ -37,7 +37,11 @@
 
         <ng-container matColumnDef="servers">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Сервера </th>
-          <td mat-cell *matCellDef="let element"> {{element.servers.length}} </td>
+          <td mat-cell *matCellDef="let element">
+            <span (click)="routeToServers(element.id)" style="cursor:pointer">
+            {{element.servers.length}}
+            </span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="action">

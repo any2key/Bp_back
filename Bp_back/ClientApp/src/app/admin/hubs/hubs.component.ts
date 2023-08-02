@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { AddOrUpdate, APIResponse, DataResponse, Hub } from '../../model';
 import { ApiService } from '../../services/api.service';
 import { UiService } from '../../services/ui.service';
@@ -15,22 +16,20 @@ import { AddHubComponent } from './add-hub/add-hub.component';
 })
 export class HubsComponent implements OnInit {
 
-  displayedColumns: string[] = ['active','name', 'url', 'servers', 'action'];
+  displayedColumns: string[] = ['active', 'name', 'url', 'servers', 'action'];
   dataSource = new MatTableDataSource<Hub>();
   @ViewChild(MatPaginator)
   paginator!: MatPaginator | null;
   @ViewChild(MatSort)
   sort!: MatSort | null;
-  constructor(private api: ApiService, private ui: UiService, public dialog: MatDialog) { }
+  constructor(private api: ApiService, private ui: UiService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.refreshTable();
   }
 
-  refreshTable()
-  {
-    this.api.getData<DataResponse<Hub[]>>('hub/hubs').subscribe(res =>
-    {
+  refreshTable() {
+    this.api.getData<DataResponse<Hub[]>>('hub/hubs').subscribe(res => {
       if (res.isOk) {
         this.dataSource = new MatTableDataSource<Hub>(res.data);
         this.dataSource.paginator = this.paginator;
@@ -62,8 +61,7 @@ export class HubsComponent implements OnInit {
   }
 
   addServer(id: string) {
-    this.api.getData<APIResponse>(`hub/addServer?id=${id}`).subscribe(res =>
-    {
+    this.api.getData<APIResponse>(`hub/addServer?id=${id}`).subscribe(res => {
       if (!res.isOk)
         this.ui.show(res.message);
       else this.ui.show('Успешно');
@@ -72,15 +70,18 @@ export class HubsComponent implements OnInit {
     });
   }
 
-  removeAllServers(id:string){
-    this.api.getData<APIResponse>(`hub/RemoveAllServers?id=${id}`).subscribe(res =>
-    {
+  removeAllServers(id: string) {
+    this.api.getData<APIResponse>(`hub/RemoveAllServers?id=${id}`).subscribe(res => {
       if (!res.isOk)
         this.ui.show(res.message);
       else this.ui.show('Успешно');
 
       this.refreshTable();
     });
+  }
+
+  routeToServers(id: string) {
+    this.router.navigate(['admin','servers', id]);
   }
 
 }

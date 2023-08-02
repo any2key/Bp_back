@@ -1,1 +1,106 @@
-<p>servers works!</p>
+<mat-toolbar>
+  <span>Сервера</span>
+</mat-toolbar>
+<div class="mat-elevation-z8" style="margin-left:20%;margin-right:20%;margin-top:4%">
+  <mat-card [formGroup]="filter">
+    <mat-card-header>
+      <mat-card-title>
+        Фильтр
+      </mat-card-title>
+    </mat-card-header>
+
+    <div>
+      <mat-form-field style="width:40%;margin:5px">
+        <mat-label>Хаб</mat-label>
+        <mat-select formControlName="hubId">
+          <mat-option [value]="null">Все</mat-option>
+          <mat-option *ngFor="let hub of hubs" [value]="hub.id">{{hub.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width:40%;margin:5px">
+        <mat-label>Статус</mat-label>
+        <mat-select formControlName="active">
+          <mat-option [value]="null">Все</mat-option>
+          <mat-option [value]="true">Активные</mat-option>
+          <mat-option [value]="false">Неактивные</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button matTooltip="Выбрать" (click)="filt()" type="button" style="margin-left:5px" mat-icon-button>
+        <mat-icon>check</mat-icon>
+      </button>
+
+    </div>
+
+
+  </mat-card>
+  <mat-progress-bar *ngIf="isLoaded" mode="indeterminate"></mat-progress-bar>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> URL </th>
+      <td mat-cell *matCellDef="let element"> {{element.hub.url}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="port">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TCP порт </th>
+      <td mat-cell *matCellDef="let element"> {{element.port}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="httpPort">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Http порт </th>
+      <td mat-cell *matCellDef="let element"> {{element.httpPort}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hub">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Хаб</th>
+      <td mat-cell *matCellDef="let element"> {{element.hub.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Статус</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.active" style="color:darkgreen">Активен</span>
+        <span *ngIf="!element.active" style="color:darkred">Не активен</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="playersCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Игроков</th>
+      <td mat-cell *matCellDef="let element"> {{element.playersCount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button *ngIf="!element.active" (click)="startServer(element.hub.id,element.port)" mat-menu-item>
+            <mat-icon>play_arrow</mat-icon>
+            <span>Запустить</span>
+          </button>
+          <button *ngIf="!element.active" (click)="removeServer(element.hub.id,element.port)" mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Удалить</span>
+          </button>
+          <button *ngIf="element.active" (click)="stopServer(element.hub.id,element.port)" mat-menu-item>
+            <mat-icon>close</mat-icon>
+            <span>Остановить</span>
+          </button>
+        </mat-menu>
+
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+

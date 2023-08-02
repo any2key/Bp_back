@@ -21,6 +21,21 @@ namespace Bp_Hub.Controllers
             }
         }
 
-       
+
+        protected IActionResult SafeRun(Func<string, Task<object>> action)
+        {
+            try
+            {
+                var resp = action("");
+                return new JsonResult(resp);
+            }
+
+            catch (Exception ex)
+            {
+                return new JsonResult(Models.Responses.Response.BadResponse(ex.Message));
+            }
+        }
+
+
     }
 }

@@ -84,9 +84,19 @@ export interface Dashboard {
   players: number;
 }
 
+
 export interface Server {
-  id: string;
+  id: number;
   port: number;
+  httpPort: number;
+  playersCount: number;
+  active: boolean;
+  hub: Hub | null;
+}
+
+export class ServerFilter {
+  hubId: string | null;
+  active: boolean | null;
 }
 
 export interface Hub {
